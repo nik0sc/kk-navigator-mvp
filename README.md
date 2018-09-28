@@ -3,9 +3,13 @@ MVP for the kkh navigator
 
 ## school digram overview
 each level of each building follow the schematic of this:
-[!SUTD_map](https://github.com/nik0sc/kk-navigator-mvp/SUTD_map.png)
+
+[!SUTD_map](https://github.com/nik0sc/kk-navigator-mvp/SUTD_map.jpg)
+
 have 2 buildings, blk1 and blk2 for now
+
 each building have 5 floor.
+
 and each floor have a layout look like this.
 
 ### naming, the following names are correct names for start and destination
@@ -30,7 +34,7 @@ and each floor have a layout look like this.
 ## there is only 2 inter blk connections
 1. between 1.3elevator and 2.3elevator
 2. between 1.5elevator and 2.5elevator
-
+```
 ## run the program
 [!example](https://github.com/nik0sc/kk-navigator-mvp/example.png)
 ## acknowledgements:
