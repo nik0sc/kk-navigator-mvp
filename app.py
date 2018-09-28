@@ -1,5 +1,4 @@
 from flask import Flask, jsonify, request
-from table import table
 import sutd_navigation
 
 app = Flask(__name__)
@@ -16,3 +15,4 @@ def directions(start, dest):
 
 if __name__ == "__main__":
     app.run(debug=True)
+    
