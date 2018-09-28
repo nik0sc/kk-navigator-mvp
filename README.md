@@ -46,7 +46,17 @@ for example the path connecting 1.202 and 1.201 is 1 unit.
 ```
 ## Running/Using the API
 
-![example](example.png)
+We use gunicorn to run our Flask API on: `gunicorn -w 4 app:app`
+
+This exposes the API on `localhost:8000`. We then use nginx to expose the API on port 80 (HTTP). A sample config file is at [`nginx_site_config`](nginx_site_config).
+
+**Test Query**: `http://0.0.0.0/directions/1.2corner3/1.2corner4`
+
+```
+{
+    "direction": "0. reach 1.2corner3, and turn left\n1. reach 1.207\n2. reach 1.2corner4, and turn left\n"
+}
+```
 
 ## Acknowledgements
 
