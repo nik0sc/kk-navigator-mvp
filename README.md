@@ -4,7 +4,7 @@ MVP for the kkh navigator
 ## school digram overview
 each level of each building follow the schematic of this:
 
-[!SUTD_map](https://github.com/nik0sc/kk-navigator-mvp/SUTD_map.jpg)
+[!SUTD_map](https://github.com/nik0sc/kk-navigator-mvp/blob/master/SUTD_map.jpg)
 
 have 2 buildings, blk1 and blk2 for now
 
@@ -36,6 +36,6 @@ and each floor have a layout look like this.
 2. between 1.5elevator and 2.5elevator
 ```
 ## run the program
-[!example](https://github.com/nik0sc/kk-navigator-mvp/example.png)
+[!example](https://github.com/nik0sc/kk-navigator-mvp/blob/master/example.png)
 ## acknowledgements:
 using [dijkstras algorithm](https://github.com/mburst/dijkstras-algorithm) to find shortest path;
