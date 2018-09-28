@@ -26,6 +26,11 @@ and each floor have a layout look like this.
 ```
 ### interconnections
 ```
+## interconnection between cls rooms
+there is a weight assigned to every path, weight stands for time taken choosing that path
+the large the weight is, the more time takes to finish that path.
+for example the path connecting 1.202 and 1.201 is 1 unit.
+
 ## interconnection between each elevator on the same blk
 1.2elevator connects 1.3elevator is connected(we assume 1.2 is the lowest floor)
 1.3elevator connects 1.4elevator and 1.2elevator is connected.
