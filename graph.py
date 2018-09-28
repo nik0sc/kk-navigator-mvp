@@ -63,11 +63,12 @@ class Graph:
 
 def generate_route(nodes):
     # assume we dont start from a corner here
+    out_array = []
     out_s = ""
     for i in range(len(nodes)):
-        out_s += str(i) + ". "
+        #out_s += str(i) + ". "
         if "elevator" in nodes[i]:
-            out_s += "reach " + nodes[i]
+            out_s += "Proceed to " + nodes[i]
             current_floor = int(nodes[i][2])
             des_floor = int(nodes[i+1][2])
             if current_floor > des_floor:
@@ -75,10 +76,12 @@ def generate_route(nodes):
             else:
                 out_s += ", and go up"
         elif "corner" in nodes[i]:
-            out_s += "reach " + nodes[i]
+            out_s += "Proceed to " + nodes[i]
             out_s += ", and turn left"
         else:
-            out_s += "reach " + nodes[i]
-        out_s += '\n'
+            out_s += "Proceed to " + nodes[i]
+        
+        out_array.append(out_s)
+        out_s = ""
 
-    return out_s
+    return out_array
