@@ -87,10 +87,10 @@ def render_map(nodes_list):
     plt.tight_layout()
     
     figfile = BytesIO()
-    plt.savefig(figfile, format='jpg')
+    plt.savefig(figfile, format='png')
     figfile.seek(0)
-    figdata_jpg = base64.b64encode(figfile.getvalue())
-    result = figdata_jpg
+    figdata = base64.b64encode(figfile.getvalue())
+    result = figdata
     return(result)
 
 
