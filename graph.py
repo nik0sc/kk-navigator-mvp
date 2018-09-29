@@ -60,28 +60,129 @@ class Graph:
     def __str__(self):
         return str(self.vertices)
 
+# def simplify_nodes(nodes):
+#     '''
+#     to aviod intermediate nodes
+#     e.g.
+    
+#     '''
+#     temp = None
+#     out_nodes = []
+#     for n in nodes:
+#         if len(n) == temp:
+#             pass
+#         # for corner case, len('1.2corner4')=10
+#         elif len(n) == 10:
+#             out_nodes.append(n)
+#             temp = 10
+#         # for elevator case, len('1.2elevator')=11
+#         elif len(n) == 11:
+#             out_nodes.append(n)
+#             temp = 11
+#         # for clsroom case, len('1.204')=5
+#         else:
+#             out_nodes.append(n)
+#             temp = 5
+#     return out_nodes
 
 def generate_route(nodes):
+    """
+    @input: list of nodes, ['1.206', '1.205', '1.203', '1.2corner1', '1.201', '1.2elevator', '1.3elevator', '1.4elevator'] 
+    @output: string of guide generated based on nodes
+    """
     # assume we dont start from a corner here
-    out_array = []
-    out_s = ""
-    for i in range(len(nodes)):
-        #out_s += str(i) + ". "
-        if "elevator" in nodes[i]:
-            out_s += "Proceed to " + nodes[i]
-            current_floor = int(nodes[i][2])
-            des_floor = int(nodes[i+1][2])
-            if current_floor > des_floor:
-                out_s += ", and go down"
-            else:
-                out_s += ", and go up"
-        elif "corner" in nodes[i]:
-            out_s += "Proceed to " + nodes[i]
-            out_s += ", and turn left"
-        else:
-            out_s += "Proceed to " + nodes[i]
-        
-        out_array.append(out_s)
-        out_s = ""
+    out_s = "Starting from " + nodes[0] + " and go straight to "
+    i = 1
+    # from element 0 to n-1
+    while i<len(nodes)-1:
+        out_s += nodes[i] + ', '
 
-    return out_array
+        # current node is elevator
+        if "elevator" in nodes[i]:
+            if "corner" in nodes[i+1]: # 1. next node is corner:
+                if nodes[i+1][0] == '1': # A. building 1
+                    if nodes[i-1][0] == node[i][0]:
+                        out_s += "exit lift then turn right and reach "
+                    else:
+                        out_s += "go straight and reach "
+                elif nodes[i+1][0] == '2': # B. building 2
+                    if nodes[i-1][0] == node[i][0]:
+                        out_s += "exit lift then turn left and reach "
+                    else:
+                        out_s += "go straight and reach "
+            elif "elevator" in nodes[i+1]: # 2. next node is elevator
+                if nodes[i][0] != nodes[i+1][0]: # A. the two lift is not on the same building
+                    if nodes[i+1][0] == '1': # a. building2 lift to buidling1 lift
+                        out_s += "exit lift and turn right and reach "
+                    if nodes[i+1][0] == '2': # b. building1 lift to building2 lift
+                        out_s += "exit lift and turn left and reach "
+                elif nodes[i][0] == nodes[i+1][0]: # B. take the lift to a different store in the same building
+                    while "elevator" in nodes[i+1]:
+                        i += 1
+                    if int(nodes[i][2]) > int(nodes[i-1][2]):
+                        out_s += "enter the lift and going up to " # a. going up
+                    else:
+                        out_s += "enter the lift and going down to " # b. going down
+                    i -= 1 # we add this 1 later on
+        
+        # current node is corner
+        elif "corner" in nodes[i]:
+            if "corner1" in nodes[i]: # for corner1
+                if "elevator" in nodes[i-1]:
+                    if '01' in nodes[i+1]:
+                        out_s += "turn right and reach "
+                    elif '12' in nodes[i+1]:
+                        out_s += "turn left and reach "
+                    elif '13' in nodes[i+1]:
+                        out_s += "go straight and reach "
+                if "01" in nodes[i-1]:
+                    if 'elevator' in nodes[i+1]:
+                        out_s += "turn left and reach "
+                    elif '12' in nodes[i+1]:
+                        out_s += "go straight and reach "
+                    elif '13' in nodes[i+1]:
+                        out_s += "turn right and reach "
+                if "13" in nodes[i-1]:
+                    if '01' in nodes[i+1]:
+                        out_s += "turn left and reach "
+                    if 'elevator' in nodes[i+1]:
+                        out_s += "go straight and reach "
+                    if '12' in nodes[i+1]:
+                        out_s += "turn right and reach "
+                if "12" in nodes[i+1]:
+                    if '01' in nodes[i+1]:
+                        out_s += "go straight and reach "
+                    if 'elevator' in nodes[i+1]:
+                        out_s += "turn right and reach "
+                    if '13' in nodes[i+1]:
+                        out_s += "turn left and reach "
+            elif "corner4" in nodes[i]: # for corner2
+                if "07" in nodes[i-1]:
+                    if '13' in nodes[i+1]:
+                        out_s += "turn left and reach "
+                    if '09' in nodes[i+1]:
+                        out_s += "go straight and reach "
+                if "13" in nodes[i-1]:
+                    if '17' in nodes[i+1]:
+                        out_s += "turn right and reach "
+                    if '09' in nodes[i+1]:
+                        out_s += "turn left and reach "
+                if "09" in nodes[i-1]:
+                    if '13' in nodes[i+1]:
+                        out_s += "turn right and reach "
+                    if '07' in nodes[i+1]:
+                        out_s += "go straight and reach "
+            else: # 3. other nodes
+                if int(nodes[i+1][3:]) > int(nodes[i-1][3:]):
+                    out_s += "turn left and reach"
+                else:
+                    out_s += "turn right and reach"
+        
+        # current nodes is clsroom
+        elif len(nodes[i]) == 5:
+            if 'corner' in nodes[i+1]:
+                out_s += "and then reach "
+            else:
+                out_s += "pass by "
+                    
+    return out_s
