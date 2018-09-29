@@ -187,4 +187,4 @@ def generate_route(nodes):
         i += 1
     out_s += nodes[-1]
     out_s += ", You have reached your destination!"
-    return out_s
+    return [step.strip() for step in out_s.split(",")]

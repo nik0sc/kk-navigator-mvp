@@ -54,10 +54,20 @@ This exposes the API on `localhost:8000`. We then use nginx to expose the API on
 
 ```
 {
-  "direction": "Starting from 1.203 and go straight to 1.2corner2, turn right and reach1.202, pass by 1.201, and then reach 1.2corner1, turn left and reach 1.2elevator, enter the lift and going down to 2.5elevator, go straight and reach 2.5corner1, go straight and reach 2.513, You have reached your destination!"
+  "direction": [
+    "Starting from 1.203 and go straight to 1.2corner2", 
+    "turn right and reach1.202", 
+    "pass by 1.201", 
+    "and then reach 1.2corner1", 
+    "turn left and reach 1.2elevator", 
+    "enter the lift and going down to 2.5elevator", 
+    "go straight and reach 2.5corner1", 
+    "go straight and reach 2.513", 
+    "You have reached your destination!"
+  ]
 }
 ```
 
 ## Acknowledgements
 
-* Using [dijkstras algorithm](https://github.com/mburst/dijkstras-algorithm) to find shortest path
+* Using [Dijkstra's algorithm](https://github.com/mburst/dijkstras-algorithm) to find shortest path
