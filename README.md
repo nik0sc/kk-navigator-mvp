@@ -50,23 +50,28 @@ We use gunicorn to run our Flask API on: `gunicorn -w 4 app:app`
 
 This exposes the API on `localhost:8000`. We then use nginx to expose the API on port 80 (HTTP). A sample config file is at [`nginx_site_config`](nginx_site_config).
 
-**Test Query**: `http://127.0.0.1:5000/directions/1.203/2.513`
+**Test Query**: `http://ip/directions/1.2corner3/2.2corner4`
 
 ```
 {
-  "direction": [
-    "Starting from 1.203 and go straight to 1.2corner2", 
-    "turn right and reach1.202", 
-    "pass by 1.201", 
-    "and then reach 1.2corner1", 
-    "turn left and reach 1.2elevator", 
-    "enter the lift and going down to 2.5elevator", 
-    "go straight and reach 2.5corner1", 
-    "go straight and reach 2.513", 
-    "You have reached your destination!"
-  ]
+    "direction": ["Starting from 1.2corner3 and go straight to 1.203",
+                  "and then reach 1.2corner2",
+                  "turn right and reach1.202",
+                  "pass by 1.201",
+                  "and then reach 1.2corner1",
+                  "turn left and reach 1.2elevator",
+                  "enter the lift and going down to 2.2elevator",
+                  "exit lift then turn left and reach 2.2corner1",
+                  "go straight and reach 2.213",
+                  "and then reach 2.2corner4",
+                  "You have reached your destination!"],
+    "map_render": "b'BASE_64_ENCODED_PNG'"
 }
 ```
+
+Image can be decoded using [online tools](https://codebeautify.org/base64-to-image-converter) to test the encoding. Example of an image is:
+
+![eg_map](eg_decoded.png)
 
 ## Acknowledgements
 
