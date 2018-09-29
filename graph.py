@@ -101,12 +101,12 @@ def generate_route(nodes):
         if "elevator" in nodes[i]:
             if "corner" in nodes[i+1]: # 1. next node is corner:
                 if nodes[i+1][0] == '1': # A. building 1
-                    if nodes[i-1][0] == node[i][0]:
+                    if nodes[i-1][0] == nodes[i][0]:
                         out_s += "exit lift then turn right and reach "
                     else:
                         out_s += "go straight and reach "
                 elif nodes[i+1][0] == '2': # B. building 2
-                    if nodes[i-1][0] == node[i][0]:
+                    if nodes[i-1][0] == nodes[i][0]:
                         out_s += "exit lift then turn left and reach "
                     else:
                         out_s += "go straight and reach "
@@ -184,5 +184,7 @@ def generate_route(nodes):
                 out_s += "and then reach "
             else:
                 out_s += "pass by "
-                    
+        i += 1
+    out_s += nodes[-1]
+    out_s += ", You have reached your destination!"
     return out_s
