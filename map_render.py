@@ -22,7 +22,7 @@ coord_map = {'elevator': [0,1],
              '02': [-2,0],
              'corner2': [-3,0],
              '03': [-4,-2],
-             'corner3': [-4,-4],
+             'corner3': [-5,-4],
              '07': [-1,-4],
              'corner4': [1,-4],
              '09': [4,-4],
@@ -94,5 +94,5 @@ def render_map(nodes_list):
 
 
 if __name__ == '__main__':
-    nodes = g.shortest_path('1.201', '2.5corner4')
+    nodes = g.shortest_path('1.201', '2.5corner3')
     print(render_map(nodes))
