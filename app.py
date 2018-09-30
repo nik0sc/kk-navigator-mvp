@@ -2,6 +2,8 @@ from flask import Flask, jsonify
 import navigation
 from map_render import *
 
+import paho.mqtt.client as mqtt
+
 app = Flask(__name__)
 
 
@@ -24,6 +26,11 @@ def directions(start, dest):
     }
 
     return jsonify(response)
+
+
+# MQTT portion
+
+
 
 
 if __name__ == "__main__":
