@@ -8,11 +8,20 @@ app = Flask(__name__)
 @app.route('/directions/<start>/<dest>', methods=['GET'])
 def directions(start, dest):
 
-    nodes = navigation.g.shortest_path(start, dest)
+    try:
+        nodes = navigation.g.shortest_path(start, dest)
+        direction = navigation.generate_route(nodes)
+        map_render = str(render_map(nodes))
+        error_code = ""
+
+    except Exception as e:
+        error_code = str(e)
 
     response = {
-        "direction": navigation.generate_route(nodes),
-        "map_render": str(render_map(nodes))}
+        "direction": direction,
+        "map_render": map_render,
+        "error": error_code
+    }
 
     return jsonify(response)
 
