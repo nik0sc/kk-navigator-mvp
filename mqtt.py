@@ -1,63 +1,56 @@
 import paho.mqtt.client as mqtt
-import os
-import ssl
-import argparse
 import time
 
-def on_connect(mqttc, obj, flags, rc):
-    print("connect rc: " + str(rc))
 
-def on_message(mqttc, obj, msg):
-    print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
+class MQTT(object):
 
-def on_publish(mqttc, obj, mid):
-    print("mid: " + str(mid))
+    def __init__(self):
+        self.host = "metric.team-lol.tk"
+        self.port = 8883
+        self.keepalive = 60
+        self.topic = "kk_metrics"
+        self.qos = 0
 
-def on_subscribe(mqttc, obj, mid, granted_qos):
-    print("Subscribed: " + str(mid) + " " + str(granted_qos))
+        self.mqttc = mqtt.Client()
 
-def on_log(mqttc, obj, level, string):
-    print(string)
+        self.mqttc.username_pw_set("ubuntu", "sutd1234")
 
-usetls = True
-tlsVersion = None
-port = 8883
+        self.mqttc.on_message = self.on_message
+        self.mqttc.on_connect = self.on_connect
+        self.mqttc.on_publish = self.on_publish
+        self.mqttc.on_subscribe = self.on_subscribe
+        self.mqttc.on_log = self.on_log
 
-mqttc = mqtt.Client()
+        print("Connecting to "+self.host+" port: "+str(self.port))
 
-cert_required = ssl.CERT_REQUIRED
-cacerts = "/etc/ssl/certs/"
-certfile = "keys/cert.pem"
-keyfile = "keys/privkey.pem"
+        self.mqttc.connect(self.host, self.port, self.keepalive)
 
-mqttc.tls_set(ca_certs=cacerts, certfile=None, keyfile=None, cert_reqs=cert_required, tls_version=tlsVersion)
+        self.mqttc.loop_start()
 
-mqttc.username_pw_set("ubuntu", "sutd1234")
+    def publish_msg(self, msg):
+        infot = self.mqttc.publish(self.topic, msg, qos=self.qos)
+        infot.wait_for_publish()
+        print("Published:", msg)
 
-mqttc.on_message = on_message
-mqttc.on_connect = on_connect
-mqttc.on_publish = on_publish
-mqttc.on_subscribe = on_subscribe
+    def on_connect(mqttc, obj, flags, rc):
+        print("connect rc: " + str(rc))
 
-mqttc.on_log = on_log
+    def on_message(mqttc, obj, msg):
+        print(msg.topic + " " + str(msg.qos) + " " + str(msg.payload))
 
-host = "metric.team-lol.tk"
-keepalive = 60
+    def on_publish(mqttc, obj, mid):
+        print("mid: " + str(mid))
 
-topic = "kk_metrics"
-qos = 0
+    def on_subscribe(mqttc, obj, mid, granted_qos):
+        print("Subscribed: " + str(mid) + " " + str(granted_qos))
 
-print("Connecting to "+host+" port: "+str(port))
-mqttc.connect(host, port, keepalive)
+    def on_log(mqttc, obj, level, string):
+        print(string)
 
-mqttc.loop_start()
+    def __del__(self):
+        self.mqttc.disconnect()
 
-for x in range (0, args.nummsgs):
-    msg_txt = '{"msgnum": "'+str(x)+'"}'
-    print("Publishing: "+msg_txt)
-    infot = mqttc.publish(topic, msg_txt, qos=qos)
-    infot.wait_for_publish()
 
-    time.sleep(args.delay)
-
-mqttc.disconnect()
+if __name__ == "__main__":
+    mqtt_service = MQTT()
+    mqtt_service.publish_msg("Test message from __main__")
