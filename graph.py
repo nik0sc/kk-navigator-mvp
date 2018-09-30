@@ -64,7 +64,6 @@ class Graph:
 #     '''
 #     to aviod intermediate nodes
 #     e.g.
-    
 #     '''
 #     temp = None
 #     out_nodes = []
@@ -87,7 +86,7 @@ class Graph:
 
 def generate_route(nodes):
     """
-    @input: list of nodes, ['1.206', '1.205', '1.203', '1.2corner1', '1.201', '1.2elevator', '1.3elevator', '1.4elevator'] 
+    @input: list of nodes, ['1.206', '1.205', '1.203', '1.2corner1', '1.201', '1.2elevator', '1.3elevator', '1.4elevator']
     @output: string of guide generated based on nodes
     """
     # assume we dont start from a corner here

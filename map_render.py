@@ -1,4 +1,3 @@
-import numpy as np
 import matplotlib.pyplot as plt
 from navigation import *
 from io import BytesIO
@@ -64,8 +63,8 @@ def render_map(nodes_list):
             axarr[1].plot(face[0], face[1], c=[0, 0, 0, 0.2], linewidth=10)
             axarr[1].plot(face[0], face[1], c=[0, 0, 0, 0.5], linewidth=3)
             axarr[1].scatter(face[0], face[1], c='g', s=100, marker='o')
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
     axarr[0].plot(level_a_points[0], level_a_points[1], c='r', linewidth=3)
     axarr[0].scatter(level_a_points[0][0], level_a_points[1][0], c='r', s=200, marker='o')
@@ -79,8 +78,8 @@ def render_map(nodes_list):
         axarr[1].scatter(level_b_points[0][-1], level_b_points[1][-1], c='r', s=400, marker='^')
         axarr[1].text(level_b_points[0][0]-0.3, level_b_points[1][0]+0.4, nodes_list[-1*len(level_b_points[0])])
         axarr[1].text(level_b_points[0][-1]-0.3, level_b_points[1][-1]+0.4, nodes_list[-1])
-    except:
-        pass
+    except Exception as e:
+            print(e)
 
     axarr[0].axis('off')
     axarr[1].axis('off')
