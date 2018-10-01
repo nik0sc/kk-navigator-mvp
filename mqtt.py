@@ -5,7 +5,7 @@ import time
 class MQTT(object):
 
     def __init__(self):
-        self.host = "mqtt.kkway.tk"
+        self.host = "3.0.64.224"
         self.port = 8883
         self.keepalive = 60
         self.topic = "kk_metrics"
@@ -21,9 +21,11 @@ class MQTT(object):
         self.mqttc.on_subscribe = self.on_subscribe
         self.mqttc.on_log = self.on_log
 
-        print("Connecting to "+self.host+" port: "+str(self.port))
+        print("[ INFO] Connecting to "+self.host+" port: "+str(self.port))
 
         self.mqttc.connect(self.host, self.port, self.keepalive)
+
+        print("[ INFO] SUCCESS")
 
         self.mqttc.loop_start()
 
