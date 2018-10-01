@@ -42,5 +42,5 @@ def directions():
 
 
 if __name__ == "__main__":
-    rint("[INFO ] Starting Flask server")
+    print("[INFO ] Starting Flask server")
     app.run(debug=True)
