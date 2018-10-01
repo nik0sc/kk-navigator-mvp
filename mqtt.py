@@ -5,7 +5,7 @@ import time
 class MQTT(object):
 
     def __init__(self):
-        self.host = "metric.team-lol.tk"
+        self.host = "mqtt.kkway.tk"
         self.port = 8883
         self.keepalive = 60
         self.topic = "kk_metrics"
